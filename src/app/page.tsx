@@ -1268,8 +1268,17 @@ export default function Home() {
       {/* ── 3D Canvas (always rendered, even on start/complete for atmosphere) ── */}
       <Canvas
         camera={{ fov: 75, near: 0.1, far: 120 }}
-        dpr={[1, isMobile ? 1.2 : 1.8]}
-        gl={{ antialias: !isMobile, alpha: false }}
+        dpr={isMobile ? [1, 2.5] : [1, 2.0]}
+        gl={{
+          antialias: true,
+          alpha: false,
+          precision: "highp",
+          powerPreference: isMobile ? "default" : "high-performance",
+        }}
+        onCreated={({ gl }) => {
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.1;
+        }}
         className="absolute inset-0"
       >
         <FacilityEnvironment missionIndex={missionIndex} />
