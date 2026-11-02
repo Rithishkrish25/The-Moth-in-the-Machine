@@ -839,9 +839,9 @@ function TouchControls({
           <div className="h-8 w-8 rounded-full bg-white/20" />
         </div>
       </div>
-      {/* Right half: look drag */}
+      {/* Right half: look drag — stops above the interact button area */}
       <div
-        className="absolute bottom-0 right-0 top-0 w-1/2"
+        className="absolute bottom-28 right-0 top-0 w-1/2"
         onTouchStart={(e) => {
           const t = e.touches[0];
           lookOrigin.current = { x: t.clientX, y: t.clientY };
@@ -1245,6 +1245,24 @@ export default function Home() {
       {/* ── Mobile touch controls ── */}
       {isMobile && gamePhase === "playing" && !activeModal && (
         <TouchControls touchMoveRef={touchMoveRef} touchLookRef={touchLookRef} />
+      )}
+
+      {/* ── Mobile INTERACT button ── */}
+      {isMobile && gamePhase === "playing" && !!nearbyTarget && !activeModal && (
+        <button
+          className="pointer-events-auto absolute bottom-10 right-6 z-30 flex h-16 w-16 flex-col items-center justify-center rounded-full border-2 border-cyan-400 bg-[#050914]/80 shadow-[0_0_20px_rgba(34,211,238,0.4)] backdrop-blur-sm active:scale-95"
+          style={{ touchAction: "manipulation" }}
+          onPointerDown={(e) => {
+            e.stopPropagation();
+            setActiveModal(nearbyTarget);
+          }}
+          aria-label="Interact"
+        >
+          <span className="text-lg font-black leading-none text-cyan-300">E</span>
+          <span className="mt-0.5 text-[7px] font-bold tracking-[0.15em] text-cyan-400">
+            INTERACT
+          </span>
+        </button>
       )}
 
       {/* ── 3D Canvas (always rendered, even on start/complete for atmosphere) ── */}
