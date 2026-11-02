@@ -16,10 +16,14 @@ body {
 
 body {
   overflow-x: hidden;
+  /* Prevent mobile browser chrome from causing layout shifts */
+  overscroll-behavior: none;
 }
 
 button {
   cursor: pointer;
+  /* Ensure tap targets are accessible on mobile */
+  touch-action: manipulation;
 }
 
 ::selection {
