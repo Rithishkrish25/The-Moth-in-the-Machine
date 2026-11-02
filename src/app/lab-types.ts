@@ -1,3 +1,4 @@
+// ── Navigation types (legacy, kept for LabReport compatibility) ────────────
 export type LabView =
   | "dashboard"
   | "exp01"
@@ -27,19 +28,46 @@ export interface ScanReading {
   anomaly: boolean;
 }
 
+// Legacy state shape (kept for LabReport)
 export interface LabState {
   view: LabView;
-  activeFloor: number; // 1 | 2 | 3 — drives the 3D camera
-  // Exp 01
+  activeFloor: number;
   inspectionItems: InspectionItem[];
   exp01Complete: boolean;
-  // Exp 02
   reactorOnline: boolean;
-  reactorPower: number; // 0–100 simulated %
+  reactorPower: number;
   exp02Complete: boolean;
-  // Exp 03
   scanStarted: boolean;
-  scanProgress: number; // 0–100
+  scanProgress: number;
   mothDiscovered: boolean;
   exp03Complete: boolean;
+}
+
+// ── First-person game types ────────────────────────────────────────────────
+
+export type GamePhase = "start" | "playing" | "complete" | "report";
+
+export type MissionIndex = 1 | 2 | 3;
+
+export interface FeedbackEvent {
+  id: number;
+  message: string;
+  points: number;
+  type: "correct" | "wrong" | "info";
+}
+
+export interface GameState {
+  score: number;
+  elapsedSeconds: number;
+  timerRunning: boolean;
+  feedback: FeedbackEvent | null;
+  scoredActions: Set<string>;
+}
+
+export interface FacilityInteractable {
+  id: string;
+  label: string;
+  pos: [number, number, number];
+  radius: number;
+  mission: MissionIndex;
 }

@@ -30,3 +30,32 @@ button {
   background: #0891b2;
   color: white;
 }
+
+/* Hide cursor when pointer is locked (first-person mode) */
+body.pointer-locked {
+  cursor: none;
+}
+
+/* Prevent text selection while playing */
+body.pointer-locked * {
+  user-select: none;
+}
+
+/* ── Pointer-lock cursor styles ─────────────────────────────────────────── */
+
+/* Hide cursor when pointer is locked */
+body.pointer-locked {
+  cursor: none;
+}
+
+/* Fullscreen canvas */
+canvas.fp-canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* No scrollbar in game mode */
+body.game-active {
+  overflow: hidden;
+}
